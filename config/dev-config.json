@@ -1,0 +1,5 @@
+{
+    "NAME": "Development",
+    "ENVIRONMENT": "DEV",
+    "PORT": 4000
+}

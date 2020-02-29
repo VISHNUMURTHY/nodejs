@@ -1,46 +1,23 @@
 import express from "express";
 
-import Logger from './controllers/routes.controller';
+import Logger from './logging/logger';
+import ConfigurationProperties from './controllers/CofiguarationProperties';
+import route from './controllers/routes';
 
 const app = express();
 const logger = new Logger();
-app.use(express.json);
+process.env.ENVIRONMENT = "DEV";
+const config = new ConfigurationProperties(process.env.ENVIRONMENT, process.env.PROPFILE || "./config/dev-config.json");
 
-const port = process.env.port || 3000;
-/**
- * Start Express server.
- */
-const genres = [
-    { id: 1, name: 'Action' },
-    { id: 2, name: 'Horror' },
-    { id: 3, name: 'Romance' },
-];
+app.use(express.json());
 
-app.get("/", (req, res) => {
-    //res.send("Server is running!!!!!!!!");
-    console.log('Get method called', req);
-    res.send(genres);
-})
+app.use('/api', route);
 
-app.post("/", (req, res) => {
-    console.log('Post method called', req);
-    res.send("Don't play with me.. I will stop responding..");
-})
-
-app.put("/", (req, res) => {
-    console.log('Put method called', req);
-    res.send("Stop playing... This is my final warning...!!!!");
-})
-
-app.delete("/", (req, res) => {
-    console.log('Delete method called', req);
-    res.send("Goto hell.........|........");
-})
-
-logger.log();
+const port = process.env.PORT || 3000;
 
 const server = app.listen(port, () => {
-    console.log(`App is running at ${port} mode`);
+    logger.log(`App is listening on port`, port);
+    logger.log('App is running in environment', process.env.ENVIRONMENT);
 });
 
 export default server;
