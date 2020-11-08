@@ -20,8 +20,10 @@ typedef struct monster {
   double weight;
 } monster;
 
+int compare_monsters(monster *m1, monster *m2, int use_name, int use_weight);
+
 monster *make_some_monsters(int n) {
-  monster *monsters = malloc(sizeof(monster) * n);
+  monster *monsters = (monster*)malloc(sizeof(monster) * n);
   time_t t;
   srand((unsigned)time(&t));
   for (int i = 0; i < n; i++) {
@@ -85,7 +87,7 @@ int compare_monsters(monster *m1, monster *m2, int use_name, int use_weight) {
 /* Implement ascending quick sort. */
 int repartition(monster *list, int low_index, int high_index, int *comparisons,
                 int *swaps, int use_name, int use_weight) {
-  monster *pivot_value = malloc(sizeof(monster) * 1);
+  monster *pivot_value = (monster*)malloc(sizeof(monster) * 1);
   pivot_value[0] = list[high_index];
   int i = low_index;
   for (int j = low_index; j < high_index; j++) {
@@ -177,26 +179,24 @@ void bubble_sort(monster *list, int n, int use_name, int use_weight) {
 /* Highest-value finder for selection sort. */
 int find_highest(monster *list, int n, int *comparisons, int use_name,
                  int use_weight) {
-  monster *highest_val = malloc(sizeof(monster) * 1);
-  highest_val[0] = list[0];
-  int highest_loc = -1;
+  monster highest_val= list[0];
+  int highest_loc = 0;
   int i;
-  for (i = 0; i <= n; i++) {
+  for (i = 1; i <= n; i++) {
     (*comparisons)++;
     if (use_name == 1) {
-      if (strcmp(list[i].name, highest_val[0].name) > 0) {
+      if (strcmp(list[i].name, highest_val.name) > 0) {
         highest_loc = i;
-        highest_val[0] = list[i];
+        highest_val = list[i];
       }
     }
     if (use_weight == 1) {
-      if (list[i].weight > highest_val[0].weight) {
+      if (list[i].weight > highest_val.weight) {
         highest_loc = i;
-        highest_val[0] = list[i];
+        highest_val = list[i];
       }
     }
   }
-  free(highest_val);
   return highest_loc;
 }
 
@@ -294,7 +294,7 @@ void insertion_sort(monster *list, int n, int use_name, int use_weight) {
 void merge_sort_merge(monster *list, int l1, int h1, int l2, int h2,
                       int *comparisons, int *copies, int *block_copies,
                       int *mallocs, int use_name, int use_weight) {
-  monster *temp = malloc(sizeof(monster) * (h2 - l1 + 1));
+  monster *temp = (monster*)malloc(sizeof(monster) * (h2 - l1 + 1));
   int index = l1;
   int k = l1;
   (*mallocs)++;
@@ -434,7 +434,7 @@ void merge_insertion_sort(monster *list, int n, int use_name, int use_weight) {
 /* Main program. */
 void run_all_sorts(int n, int only_fast, int use_name, int use_weight) {
   monster *our_list = make_some_monsters(n);
-  monster *our_unsorted_list = malloc(sizeof(monster) * n);
+  monster *our_unsorted_list = (monster*)malloc(sizeof(monster) * n);
   printf("SORT SET: n = %d, %s, by %s\n\n", n,
          only_fast ? "fast sorts only" : "all sorts",
          use_name ? "name" : "weight");
