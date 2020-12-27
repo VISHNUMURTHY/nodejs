@@ -1,0 +1,99 @@
+.sidenav-container {
+  height: 100%;
+  background-color: white;
+}
+
+.sidenav {
+  width: 150px;
+  display: none;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+mat-toolbar {
+  background: darkblue;
+  color: white;
+  padding: 0 24px;
+  display: none
+}
+
+button {
+  margin-right: 16px;
+}
+
+.mat-list-base .mat-list-item {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  height: auto;
+  padding: 12px 0;
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+
+  & .mat-list-base {
+    padding: 4px 0;
+    background-color: #F0F2F5;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.mat-nav-list .mat-list-item:focus {
+  background-color: rgba(99, 162, 243, 0.1);
+}
+
+.active-icon {
+  color: blue;
+  background-color: rgba(99, 162, 243, 0.1);
+}
+
+.icon-text {
+  flex: 1 1 auto;
+  align-items: center;
+
+  // & mat-icon {
+  //   height: 30px;
+  //   width: 30px;
+  //   font-size: 30px;
+  // }
+}
+
+.sidenav-route {
+  display: flex;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px) {
+  mat-toolbar {
+    padding: 0 16px;
+    display: flex;
+  }
+
+  .sidenav {
+    display: block;
+  }
+
+  .sidenav-content {
+    display: block;
+
+    & mat-nav-list.mat-list-base {
+      display: none;
+    }
+  }
+
+  .mat-list-base .mat-list-item{
+    padding: 4px 0;
+  }
+}

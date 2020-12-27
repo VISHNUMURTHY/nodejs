@@ -1,0 +1,227 @@
+<div class="flex-row new-workflow-header">
+    <h2>New Workflow</h2>
+    <div>
+        <button mat-flat-button>
+            <mat-icon>file_copy_outlined</mat-icon>
+            Clone
+        </button>
+        <button mat-flat-button>
+            <mat-icon>close_outlined</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button>
+            <mat-icon>add_outlined</mat-icon>
+            Create
+        </button>
+    </div>
+</div>
+<div class="flex-column">
+    <!-- <div class="flex-row buttons-handset-view">
+        <button mat-flat-button>
+            <mat-icon>file_copy_outlined</mat-icon>
+            Clone
+        </button>
+        <button mat-flat-button>
+            <mat-icon>close_outlined</mat-icon>
+            Cancel
+        </button>
+        <button mat-flat-button>
+            <mat-icon>add_outlined</mat-icon>
+            Create
+        </button>
+    </div> -->
+    <div class="flex-row buttons-desktop-view">
+        <mat-form-field appearance="legacy">
+            <mat-label>Filling Name</mat-label>
+            <input matInput placeholder="Name of Filling">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Template</mat-label>
+            <select matNativeControl placeholder="Select Template" panelClass="new-workflow-select-panel">
+                <option value="" disabled>--Select Template--</option>
+                <option value="IF" selected>Individual Filling</option>
+                <option value="MF">Marriage Filling</option>
+            </select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select placeholder="Status" panelClass="new-workflow-select-panel" disableOptionCentering>
+                <mat-option value="active">Active</mat-option>
+                <mat-option value="inactive">Inactive</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="flex-row buttons-desktop-view">
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput placeholder="Description">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Dates Active</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="From date">
+                <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+    </div>
+</div>
+<!-- <mat-tab-group #tabGroup [selectedIndex]="selectedIndex">
+    <mat-tab *ngFor="let tab of tabs | sort:'asc':'sequence'; let tabIndex = index" disabled>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">{{tab.icon}}</mat-icon>
+            {{tab.label}}
+        </ng-template>
+
+        <ng-template matTabContent>
+            <div class="flex-column tab-content">
+                <button mat-button (click)="update()">Shift</button>
+                <ng-container>
+                    <app-personal-info *ngIf="tab.label === 'Personal Information'" [personalInfoData]="tab.sections"></app-personal-info>
+                    <app-dependents *ngIf="tab.label === 'Dependents'" [dependentsData]="tab.sections"></app-dependents>
+                    <app-questionnaire *ngIf="tab.label === 'Questionnaire'" [questionnaireData]="tab.sections"></app-questionnaire>
+                    <app-attachments *ngIf="tab.label === 'Attachments'" [attachmentsData]="tab.sections"></app-attachments>
+                </ng-container>
+            </div>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group> -->
+<form [formGroup]="tabsFormGroup" (ngSubmit)="onSubmit()">
+    <mat-horizontal-stepper linear="true" #stepper class="stepper-tabs" selectedIndex="1" *ngIf="!(isHandset$ | async)">
+        <ng-container *ngFor="let tab of tabs | sort:'asc':'sequence'; let first = first; let last = last">
+            <mat-step label="{{tab.label}}" state="{{tab.icon}}"
+                [formGroup]="getFormGroup(tabsFormGroup?.controls[tab.name])" errorMessage="Invalid Data entered"
+                completed="true">
+                <!-- <app-personal-info *ngIf="tab.label === 'Personal Information'" [personalInfoData]="tab.sections"
+                    [personalInfoForm]="getFormGroup(tabsFormGroup?.controls[tab.name])">
+                </app-personal-info> -->
+                <app-dependents *ngIf="tab.label === 'Dependents'" [dependentsData]="tab.sections"
+                    [dependentsForm]="getFormGroup(tabsFormGroup?.controls[tab.name])"></app-dependents>
+                <app-questionnaire *ngIf="tab.label === 'Questionnaire'" [questionnaireData]="tab.sections"
+                    [questionnaireForm]="getFormGroup(tabsFormGroup?.controls[tab.name])">
+                </app-questionnaire>
+                <app-attachments *ngIf="tab.label === 'Attachments'" [attachmentsData]="tab.sections"
+                    [attachmentsForm]="getFormGroup(tabsFormGroup?.controls[tab.name])"></app-attachments>
+
+                <!-- <div>
+                    <div *ngFor="let sections of tab.sections | sort:'asc':'sequence'">
+                        <div [formGroup]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sections.name])">
+                            <div class="flex-row section-title">
+                                {{sections.label}}
+                            </div>
+                            <mat-grid-list [cols]="sections.colspan" rowHeight="64px" class="personal-grid">
+                                <mat-grid-tile *ngFor="let element of sections.elements">
+                                    <app-dynamic-elements-form [element]="element"
+                                        [elementControl]="tabsFormGroup.controls[tab.name]?.controls[sections.name]?.controls[element.name]">
+                                    </app-dynamic-elements-form>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                        </div>
+                    </div>
+                </div> -->
+
+                <mat-accordion class="accordion">
+                    <ng-container *ngFor="let sections of tab.sections | sort:'asc':'sequence'">
+                        <mat-expansion-panel #panel expanded="true" hideToggle>
+                            <mat-expansion-panel-header class="panel-header">
+                                <mat-panel-title>
+                                    <mat-icon>{{!panel.expanded?'add':'remove'}}</mat-icon>
+                                    {{sections.label}}
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div [formGroup]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sections.name])"
+                                class="questions-form">
+                                <div *ngIf="sections.type === 'column'" class="flex-row">
+                                    <ng-container
+                                        *ngFor="let element of sections.elements; let first=first; let last=last;">
+                                        <div [style.width]="'calc(100% / '+sections.colspan+')'">
+                                            <app-dynamic-elements-form [element]="element"
+                                                [elementControl]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sections.name]?.controls[element.name])">
+                                            </app-dynamic-elements-form>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </ng-container>
+                </mat-accordion>
+
+                <div>
+                    <ng-container *ngIf="!first">
+                        <button mat-flat-button matStepperPrevious>Back</button>
+                    </ng-container>
+                    <ng-container *ngIf="!last">
+                        <button mat-flat-button matStepperNext
+                            (click)="log(tabsFormGroup?.controls['tabForm']?.controls[tab.name].value)">Next</button>
+                    </ng-container>
+                    <ng-container *ngIf="last">
+                        <!-- <button mat-flat-button (click)="stepper.reset()">Reset</button> -->
+                        <button mat-flat-button type="submit">Submit</button>
+                    </ng-container>
+                </div>
+            </mat-step>
+
+            <ng-template matStepperIcon="{{tab.icon}}">
+                <mat-icon>{{tab.icon}}</mat-icon>
+            </ng-template>
+        </ng-container>
+    </mat-horizontal-stepper>
+
+    <mat-vertical-stepper linear="true" #stepper class="stepper-tabs" selectedIndex="1" *ngIf="(isHandset$ | async) && !(isHandset$ | async)">
+        <ng-container *ngFor="let tab of tabs | sort:'asc':'sequence'; let first = first; let last = last">
+            <mat-step label="{{tab.label}}" state="{{tab.icon}}"
+                [formGroup]="getFormGroup(tabsFormGroup?.controls[tab.name])" errorMessage="Invalid Data entered"
+                completed="true">
+                <app-personal-info *ngIf="tab.label === 'Personal Information'" [personalInfoData]="tab.sections"
+                    [personalInfoForm]="getFormGroup(tabsFormGroup?.controls[tab.name])">
+                </app-personal-info>
+                <app-dependents *ngIf="tab.label === 'Dependents'" [dependentsData]="tab.sections"
+                    [dependentsForm]="getFormGroup(tabsFormGroup?.controls[tab.name])"></app-dependents>
+                <app-questionnaire *ngIf="tab.label === 'Questionnaire'" [questionnaireData]="tab.sections"
+                    [questionnaireForm]="getFormGroup(tabsFormGroup?.controls[tab.name])">
+                </app-questionnaire>
+                <app-attachments *ngIf="tab.label === 'Attachments'" [attachmentsData]="tab.sections"></app-attachments>
+
+                <div *ngIf="tab.label === 'Personal Information'">
+                    <div *ngFor="let sections of tab.sections | sort:'asc':'sequence'">
+                        <div [formGroup]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sections.name])">
+                            {{sec.elements|json}}
+                            <div class="flex-row section-title">
+                                {{sections.label}}
+                            </div>
+                            <mat-grid-list [cols]="sections.colspan" rowHeight="64px" class="personal-grid">
+                                <mat-grid-tile *ngFor="let element of sections.elements">
+                                    <app-dynamic-elements-form [element]="element"
+                                        [elementControl]="tabsFormGroup.controls[tab.name]?.controls[sections.name]?.controls[element.name]">
+                                    </app-dynamic-elements-form>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                            <!-- <app-dynamic-elements-form [elements]="sec.elements"
+                                [elementsForm]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sec.name])">
+                            </app-dynamic-elements-form> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <ng-container *ngIf="!first">
+                        <button mat-flat-button matStepperPrevious>Back</button>
+                    </ng-container>
+                    <ng-container *ngIf="!last">
+                        <button mat-flat-button matStepperNext
+                            (click)="log(tabsFormGroup?.controls['tabForm']?.controls[tab.name].value)">Next</button>
+                    </ng-container>
+                    <ng-container *ngIf="last">
+                        <!-- <button mat-flat-button (click)="stepper.reset()">Reset</button> -->
+                        <button mat-flat-button type="submit">Submit</button>
+                    </ng-container>
+                </div>
+            </mat-step>
+
+            <ng-template matStepperIcon="{{tab.icon}}">
+                <mat-icon>{{tab.icon}}<span matTooltip="Info about the action"></span></mat-icon>
+            </ng-template>
+        </ng-container>
+    </mat-vertical-stepper>
+</form>

@@ -1,0 +1,15 @@
+.section-title {
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 4px 0;
+    margin: 8px 0;
+}
+
+app-dynamic-elements-form {
+    flex: 1 1 auto;
+
+    & mat-form-field{
+        width: 50%;
+    }
+}

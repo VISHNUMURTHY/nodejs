@@ -1,0 +1,84 @@
+:host {
+    width: 100%;
+    overflow: inherit;
+    overflow-x: hidden;
+    padding: 48px;
+}
+
+.new-workflow-header {
+    justify-content: space-between;
+}
+
+.buttons-handset-view {
+    display: none;
+
+    & button {
+        margin-bottom: 8px;
+    }
+}
+
+.buttons-desktop-view {
+    justify-content: space-between;
+}
+
+mat-form-field {
+    width: 25%;
+}
+
+.mat-tab-group {
+    border: 1px solid;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.tab-icon {
+    margin-right: 8px;
+}
+
+.tab-content {
+    flex: 1 1 auto;
+    padding: 20px;
+}
+
+.section-title {
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 4px 0;
+    margin: 8px 0;
+}
+
+app-dynamic-elements-form {
+    flex: 1 1 auto;
+
+    & mat-form-field {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    :host {
+        padding: 16px;
+    }
+
+    h2 {
+        margin: 0 0 8px;
+    }
+
+    .buttons-handset-view {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .buttons-desktop-view button {
+        display: none;
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+
+    .tab-content {
+        padding: 16px 12px;
+    }
+}

@@ -1,0 +1,76 @@
+:host {
+    width: 100%;
+    overflow: inherit;
+    padding: 48px;
+}
+
+.search-create {
+    justify-content: space-between;
+    margin-bottom: 16px;
+    align-items: center;
+
+    & button {
+        color: blue;
+        background-color: rgba(211, 215, 216, 0.5);
+    }
+}
+
+.search-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.form-field {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    :host {
+        padding: 16px;
+    }
+
+    h2 {
+        margin: 0 0 8px;
+    }
+
+    .table-responsive {
+        padding: 0 12px;
+
+        table {
+            display: block;
+            overflow-x: auto;
+
+            .mat-table {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 1rem;
+                display: table;
+                border-collapse: collapse;
+                margin: 0px;
+            }
+
+            .mat-row,
+            .mat-header-row {
+                display: table-row;
+            }
+
+            .mat-cell,
+            .mat-header-cell {
+                word-wrap: initial;
+                display: table-cell;
+                padding: 0px 5px;
+                line-break: unset;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                vertical-align: middle;
+            }
+        }
+    }
+
+}

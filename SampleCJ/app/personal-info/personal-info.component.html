@@ -1,0 +1,24 @@
+<div>
+    <!-- <form (ngSubmit)="onSubmit()" [formGroup]="personalInfoForm"> -->
+    <!-- <div [formGroup]="personalInfoForm"> -->
+
+    <div *ngFor="let sections of personalInfoData" class="form-row">
+        <div [formGroup]="personalInfoForm?.controls[sections.name]">
+            <div class="flex-row section-title">
+                {{sections.label}}
+            </div>
+            <mat-grid-list [cols]="sections.colspan" rowHeight="64px" class="personal-grid">
+                <mat-grid-tile *ngFor="let element of sections.elements">
+                    <app-dynamic-elements-form [element]="element"
+                        [elementControl]="personalInfoForm?.controls[sections.name]?.controls[element.name]">
+                    </app-dynamic-elements-form>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </div>
+
+    <!--<div>
+            <button mat-flat-button type="submit">Save</button>
+        </div>
+     </form> -->
+</div>

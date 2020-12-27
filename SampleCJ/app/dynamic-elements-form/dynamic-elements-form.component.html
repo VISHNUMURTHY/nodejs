@@ -1,0 +1,106 @@
+<!-- <div [formGroup]="elementsForm">
+
+    <ng-container *ngFor="let element of elements" [ngSwitch]="element.type">
+        <mat-form-field *ngSwitchCase="'text'">
+            <mat-label>{{element.label}}</mat-label>
+            <input matInput [type]="element.type" placeholder="{{element.label}}" [formControlName]="element.name"
+                [required]="isRequired(element.validators)">
+            <mat-error *ngIf="elementsForm.get(element.name)?.invalid">
+                <ng-container
+                    *ngFor="let error of getErrorMessages(elementsForm?.get(element.name),element.validators)">
+                    <span>{{error}}</span>
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="'date'">
+            <mat-label>{{element.label}}</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="{{element.label}}"
+                [formControlName]="element.name" [required]="isRequired(element.validators)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="elementsForm.get(element.name)?.invalid">
+                <ng-container
+                    *ngFor="let error of getErrorMessages(elementsForm?.get(element.name),element.validators)">
+                    <span>{{error}}</span>
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="['multi-select', 'single-select'] | multiSwitchCase: element.type">
+            <mat-label>{{element.label}}</mat-label>
+            <mat-select placeholder="{{element.label}}" [formControlName]="element.name"
+                [required]="isRequired(element.validators)" [multiple]="element.type === 'multi-select'? true:false"
+                disableOptionCentering>
+                <mat-option *ngFor="let option of element.valueList" [value]="option.optionKey">
+                    {{option.optionValue}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="elementsForm.get(element.name)?.invalid">
+                <ng-container
+                    *ngFor="let error of getErrorMessages(elementsForm?.get(element.name),element.validators)">
+                    <span>{{error}}</span>
+                </ng-container>
+            </mat-error>
+        </mat-form-field>
+    </ng-container>
+</div> -->
+
+<ng-container [ngSwitch]="element.type">
+    <mat-form-field *ngSwitchCase="'text'">
+        <mat-label>{{element.label}}</mat-label>
+        <input matInput [type]="element.type" placeholder="{{element.label}}" [formControl]="elementControl"
+            [required]="isRequired(element.validators)">
+        <mat-error class="flex-column" *ngIf="elementControl.invalid">
+            <ng-container *ngFor="let error of getErrorMessages(elementControl,element.validators)">
+                <span>{{error}}</span>
+            </ng-container>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'text-area'">
+        <mat-label>{{element.label}}</mat-label>
+        <textarea matInput placeholder="{{element.label}}" [formControl]="elementControl"
+            [required]="isRequired(element.validators)"></textarea>
+        <mat-error class="flex-column" *ngIf="elementControl.invalid">
+            <ng-container *ngFor="let error of getErrorMessages(elementControl,element.validators)">
+                <span>{{error}}</span>
+            </ng-container>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="'date'">
+        <mat-label>{{element.label}}</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="{{element.label}}" [formControl]="elementControl"
+            [required]="isRequired(element.validators)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error class="flex-column" *ngIf="elementControl?.invalid">
+            <ng-container *ngFor="let error of getErrorMessages(elementControl,element.validators)">
+                <span>{{error}}</span>
+            </ng-container>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngSwitchCase="['multi-select', 'single-select'] | multiSwitchCase: element.type">
+        <mat-label>{{element.label}}</mat-label>
+        <mat-select placeholder="{{element.label}}" [formControl]="elementControl"
+            [required]="isRequired(element.validators)" [multiple]="element.type === 'multi-select'? true:false"
+            disableOptionCentering>
+            <mat-option *ngFor="let option of element.valueList" [value]="option.optionKey">
+                {{option.optionValue}}
+            </mat-option>
+        </mat-select>
+        <mat-error class="flex-column" *ngIf="elementControl.invalid">
+            <ng-container *ngFor="let error of getErrorMessages(elementControl,element.validators)">
+                <span>{{error}}</span>
+            </ng-container>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-radio-group *ngSwitchCase="'radio'" [formControl]="elementControl">
+        <mat-radio-button *ngFor="let option of element.valueList" [value]="option.optionKey">
+            {{option.optionValue}}
+        </mat-radio-button>
+    </mat-radio-group>
+</ng-container>
