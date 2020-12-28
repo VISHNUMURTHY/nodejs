@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { HandSetService } from '../shared/services/hand-set.service';
-import { FillingElementModel } from '../models/filling-element.model';
 import { HttpCommonService } from '../services/http-common.service';
 import { HttpResponse } from '@angular/common/http';
+import { WorkFlowListModel } from '../models/work-flow-list.model';
 
 @Component({
   selector: 'app-work-flow',
@@ -19,8 +19,8 @@ export class WorkFlowComponent implements OnInit, AfterViewInit {
   searchControl = new FormControl();
   options: string[] = [];
   filteredOptions?: Observable<string[]>;
-  displayedColumns: string[] = [];
-  dataSource: MatTableDataSource<FillingElementModel> = new MatTableDataSource<FillingElementModel>([]);
+  displayedColumns = ['name', 'status', 'usage', 'tags', 'createdDate'];
+  dataSource: MatTableDataSource<WorkFlowListModel> = new MatTableDataSource<WorkFlowListModel>([]);
 
   @ViewChild(MatPaginator)
   paginator?: MatPaginator;
@@ -30,9 +30,8 @@ export class WorkFlowComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.httpService.getWorkflowData().subscribe((res: HttpResponse<FillingElementModel[]>) => {
+    this.httpService.getWorkflowList().subscribe((res: HttpResponse<WorkFlowListModel[]>) => {
       if (res.body !== null) {
-        this.displayedColumns = Object.keys(res.body[0]);
         this.dataSource = new MatTableDataSource<any>(res.body);
         this.dataSource.paginator = this.paginator || null;
       }

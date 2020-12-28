@@ -25,6 +25,8 @@ import { DynamicDialogFormComponent } from './common/dynamic-dialog-form/dynamic
 import { AlertMessagesComponent } from './common/alert-messages/alert-messages.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FilesDropZoneDirective } from './shared/directives/files-drop-zone.directive';
+import { FirmsListComponent } from './firms-list/firms-list.component';
+import { NewFirmComponent } from './new-firm/new-firm.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { FilesDropZoneDirective } from './shared/directives/files-drop-zone.dire
     MultiSwitchCasePipe,
     DynamicDialogFormComponent,
     AlertMessagesComponent,
-    FilesDropZoneDirective
+    FilesDropZoneDirective,
+    FirmsListComponent,
+    NewFirmComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-export class FillingElementModel {
+export class WorkFlowListModel {
     status: string;
     name: string;
     usage: string;

@@ -1,0 +1,82 @@
+[
+  {
+    "name": "ABC Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "DEF Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "GHI Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "SAASD Firms",
+    "status": "Inactive",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "ABC Firms",
+    "status": "Active",
+    "contact": "xyz@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "ABC Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "small Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "ABC Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$140 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "ABC Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2020"
+  },
+  {
+    "name": "ABC Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "13-Dec-2020"
+  },
+  {
+    "name": "ABC Firms",
+    "status": "Active",
+    "contact": "abc@email.com",
+    "tags": "Large Firm",
+    "paymentDue": "$120 by 10-Feb-2021",
+    "creationDate": "12-Dec-2021"
+  }
+]
