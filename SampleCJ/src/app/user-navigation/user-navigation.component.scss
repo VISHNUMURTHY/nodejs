@@ -50,23 +50,17 @@ button {
 }
 
 .mat-nav-list .mat-list-item:focus {
-  background-color: rgba(99, 162, 243, 0.1);
+  background-color: rgba(99, 162, 243, 0.2);
 }
 
 .active-icon {
   color: blue;
-  background-color: rgba(99, 162, 243, 0.1);
+  background-color: rgba(99, 162, 243, 0.2);
 }
 
 .icon-text {
   flex: 1 1 auto;
   align-items: center;
-
-  // & mat-icon {
-  //   height: 30px;
-  //   width: 30px;
-  //   font-size: 30px;
-  // }
 }
 
 .sidenav-route {
@@ -93,7 +87,7 @@ button {
     }
   }
 
-  .mat-list-base .mat-list-item{
+  .mat-list-base .mat-list-item {
     padding: 4px 0;
   }
 }

@@ -1,4 +1,4 @@
-import { FieldValidatorsModel } from './filed-validators.model';
+import { FieldValidatorsModel } from './field-validators.model';
 import { SelectionsModel } from './selections.model';
 
 export class ElementsModel {

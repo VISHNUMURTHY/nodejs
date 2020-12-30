@@ -6,6 +6,7 @@ import { WorkFlowComponent } from './work-flow/work-flow.component';
 import { NewWorkflowComponent } from './new-workflow/new-workflow.component';
 import { FirmsListComponent } from './firms-list/firms-list.component';
 import { NewFirmComponent } from './new-firm/new-firm.component';
+import { FirmDetailsComponent } from './firm-details/firm-details.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'new-work-flow', component: NewWorkflowComponent },
       { path: 'firms', component: FirmsListComponent },
       { path: 'new-firm', component: NewFirmComponent },
+      { path: 'firm-details/:id', component: FirmDetailsComponent },
       { path: '', redirectTo: 'work-flows', pathMatch: 'full' },
       { path: '**', component: ResourceNotFoundComponent }
     ]

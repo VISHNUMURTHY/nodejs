@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SectionsModel } from '../models/sections.model';
 import { SortPipe } from '../shared/pipes/sort.pipe';
 import { MatTableDataSource } from '@angular/material/table';
-import { DependentsModel } from '../models/dependents.model';
 import { ElementsModel } from '../models/elements.model';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { DynamicDialogFormComponent } from '../common/dynamic-dialog-form/dynamic-dialog-form.component';
@@ -16,7 +15,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class DependentsComponent implements OnInit {
   displayedColumns: string[] = [];
-  dataSource: MatTableDataSource<DependentsModel> = new MatTableDataSource<DependentsModel>([]);
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   elements: ElementsModel[] = [];
 
   @Input()
@@ -29,18 +28,14 @@ export class DependentsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("dependents form", this.dependentsForm);
-    let sample = new DependentsModel();
-    sample.fullName = 'Child One';
-    sample.ssn = '89798987';
-    sample.dob = new Date();
-    sample.relation = 'child';
+    let sample = { fullName: 'Child One', ssn: '89798987', dob: new Date(), relation: 'child' };
 
     this.dependentsData = this.sort.transform(this.dependentsData, 'asc', 'sequence');
     this.elements = this.dependentsData[0].elements;
     this.displayedColumns = this.elements.map((el: ElementsModel) => el.name);
     this.displayedColumns.push('actions');
     console.log("display columns", this.displayedColumns);
-    this.dataSource = new MatTableDataSource<DependentsModel>([sample]);
+    this.dataSource = new MatTableDataSource<any>([sample]);
 
     console.log("Dependents ", this.dependentsData);
   }
@@ -64,7 +59,7 @@ export class DependentsComponent implements OnInit {
     });
   }
 
-  editDependent(values: DependentsModel) {
+  editDependent(values: any) {
     // this.dependentsData[0].elements.forEach(el => {
     //   if(el.type === 'single-select'){
     //     el.valueList.forEach(val => {

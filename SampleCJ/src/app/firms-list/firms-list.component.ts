@@ -8,6 +8,7 @@ import { HttpCommonService } from '../services/http-common.service';
 import { HttpResponse } from '@angular/common/http';
 import { startWith, map } from 'rxjs/operators';
 import { FirmListModel } from '../models/firm-list.model';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-firms-list',
@@ -22,22 +23,27 @@ export class FirmsListComponent implements OnInit {
   contactFilter: FormControl = new FormControl('');
   tagsFilter: FormControl = new FormControl('');
   paymentDueFilter: FormControl = new FormControl('');
+  paymentDueDateFilter: FormControl = new FormControl('');
   creationDateFilter: FormControl = new FormControl('');
   options: string[] = [];
   filteredOptions?: Observable<string[]>;
-  displayedColumns = ['name', 'status', 'contact', 'tags', 'paymentDue', 'creationDate'];
+  displayedColumns = ['name', 'status', 'contact', 'tags', 'paymentDue', 'paymentDueDate', 'creationDate'];
   dataSource: MatTableDataSource<FirmListModel> = new MatTableDataSource<FirmListModel>([]);
   firmFilter = { 'name': '', 'status': '', 'contact': '', 'tags': '', 'paymentDue': '', 'creationDate': '' };
+
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   @ViewChild(MatPaginator)
   paginator?: MatPaginator;
 
   constructor(private handSet: HandSetService, private httpService: HttpCommonService) {
     this.isHandset$ = this.handSet.isHandset$;
-    this.dataSource.filterPredicate = this.createFirmListFilter();
   }
 
   ngOnInit(): void {
+    this.dataSource.filterPredicate = this.createFirmListFilter();
+    
     this.nameFilter.valueChanges.subscribe((name: string) => {
       this.firmFilter.name = name.trim().toLowerCase();
       this.dataSource.filter = JSON.stringify(this.firmFilter);
@@ -73,16 +79,24 @@ export class FirmsListComponent implements OnInit {
         if (res.body !== null) {
           this.dataSource = new MatTableDataSource<FirmListModel>(res.body);
           this.dataSource.paginator = this.paginator || null;
+          this.dataSource.filterPredicate = this.createFirmListFilter();
         }
       }, (err: HttpResponse<any>) => {
         console.log("Error", err);
       });
     });
 
+    this.filteredOptions = this.fuzzyControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+
     this.httpService.getFirmsList().subscribe((res: HttpResponse<FirmListModel[]>) => {
       if (res.body !== null) {
-        this.dataSource = new MatTableDataSource<any>(res.body);
-        this.dataSource.paginator = this.paginator || null;
+        this.dataSource.data = res.body;new MatTableDataSource<any>(res.body);
+        // this.dataSource.paginator = this.paginator || null;
+        // this.dataSource.sort = this.sort;
       }
     }, (err: HttpResponse<any>) => {
       console.log("Error", err);
@@ -96,11 +110,7 @@ export class FirmsListComponent implements OnInit {
       console.log("Error", err);
     });
 
-    this.filteredOptions = this.fuzzyControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+
   }
 
   ngAfterViewInit() {
@@ -110,6 +120,7 @@ export class FirmsListComponent implements OnInit {
       else
         this.dataSource.paginator = this.paginator || null;
     });
+    this.dataSource.sort = this.sort;
   }
 
   private _filter(value: string): string[] {

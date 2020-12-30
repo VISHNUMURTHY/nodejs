@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
@@ -13,6 +13,7 @@ import { NewWorkFlowModel } from '../models/new-workflow.model.js';
 import { TabsModel } from '../models/tabs.model.js';
 import { FormGroupService } from '../shared/services/form-group.service.js';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 const moment = _rollupMoment || _moment;
 
@@ -20,10 +21,10 @@ const moment = _rollupMoment || _moment;
   selector: 'app-new-workflow',
   templateUrl: './new-workflow.component.html',
   styleUrls: ['./new-workflow.component.scss'],
-  //encapsulation:ViewEncapsulation.None,
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
     { provide: MAT_DATE_FORMATS, useValue: DATE_DD_MMM_YYYY_FORMAT },
+    { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } }
   ]
 })
 export class NewWorkflowComponent implements OnInit, AfterViewInit {
@@ -36,7 +37,7 @@ export class NewWorkflowComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTabGroup)
   tabGroup?: MatTabGroup;
 
-  constructor(private fb: FormBuilder,private handSet: HandSetService, private httpService: HttpCommonService, private fgService: FormGroupService) {
+  constructor(private fb: FormBuilder, private handSet: HandSetService, private httpService: HttpCommonService, private fgService: FormGroupService) {
     this.isHandset$ = this.handSet.isHandset$;
   }
 
@@ -75,15 +76,15 @@ export class NewWorkflowComponent implements OnInit, AfterViewInit {
     console.log("tab group update", this.tabGroup?._tabs);
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log("tabs form group", this.tabsFormGroup.getRawValue());
   }
 
-  getFormGroup(group: FormGroup){
+  getFormGroup(group: FormGroup) {
     return group as FormGroup;
   }
 
-  log(el: any){
+  log(el: any) {
     console.log("any", el);
   }
 }

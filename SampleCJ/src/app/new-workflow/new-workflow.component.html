@@ -91,16 +91,11 @@
     <mat-horizontal-stepper linear="true" #stepper class="stepper-tabs" selectedIndex="1" *ngIf="!(isHandset$ | async)">
         <ng-container *ngFor="let tab of tabs | sort:'asc':'sequence'; let first = first; let last = last">
             <mat-step label="{{tab.label}}" state="{{tab.icon}}"
-                [formGroup]="getFormGroup(tabsFormGroup?.controls[tab.name])" errorMessage="Invalid Data entered"
+                [stepControl]="getFormGroup(tabsFormGroup?.controls[tab.name])"
+                [formGroup]="getFormGroup(tabsFormGroup?.controls[tab.name])" errorMessage="Invalid/Insufficient Data"
                 completed="true">
-                <!-- <app-personal-info *ngIf="tab.label === 'Personal Information'" [personalInfoData]="tab.sections"
-                    [personalInfoForm]="getFormGroup(tabsFormGroup?.controls[tab.name])">
-                </app-personal-info> -->
                 <app-dependents *ngIf="tab.label === 'Dependents'" [dependentsData]="tab.sections"
                     [dependentsForm]="getFormGroup(tabsFormGroup?.controls[tab.name])"></app-dependents>
-                <app-questionnaire *ngIf="tab.label === 'Questionnaire'" [questionnaireData]="tab.sections"
-                    [questionnaireForm]="getFormGroup(tabsFormGroup?.controls[tab.name])">
-                </app-questionnaire>
                 <app-attachments *ngIf="tab.label === 'Attachments'" [attachmentsData]="tab.sections"
                     [attachmentsForm]="getFormGroup(tabsFormGroup?.controls[tab.name])"></app-attachments>
 
@@ -121,9 +116,9 @@
                     </div>
                 </div> -->
 
-                <mat-accordion class="accordion">
-                    <ng-container *ngFor="let sections of tab.sections | sort:'asc':'sequence'">
-                        <mat-expansion-panel #panel expanded="true" hideToggle>
+                <mat-accordion class="accordion" multi>
+                    <ng-container *ngFor="let sections of tab.sections | sort:'asc':'sequence'; let index=index">
+                        <mat-expansion-panel #panel expanded="index === 0" hideToggle>
                             <mat-expansion-panel-header class="panel-header">
                                 <mat-panel-title>
                                     <mat-icon>{{!panel.expanded?'add':'remove'}}</mat-icon>
@@ -131,7 +126,8 @@
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div [formGroup]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sections.name])"
-                                class="questions-form">
+                                class="section-body"
+                                *ngIf="(sections.type === 'questionnaire' || sections.type === 'column')">
                                 <div *ngIf="sections.type === 'column'" class="flex-row">
                                     <ng-container
                                         *ngFor="let element of sections.elements; let first=first; let last=last;">
@@ -142,6 +138,36 @@
                                         </div>
                                     </ng-container>
                                 </div>
+
+                                <div *ngIf="sections.type === 'questionnaire'">
+                                    <ng-container
+                                        *ngFor="let element of sections.elements; let first=first; let last=last;">
+                                        <mat-divider *ngIf="!first"></mat-divider>
+                                        <div class="flex-row questions">
+                                            <div class="question"><span *ngIf="element.required"
+                                                    class="mandatory">*</span>{{element.label}}
+                                            </div>
+                                            <app-dynamic-elements-form [element]="element"
+                                                [elementControl]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sections.name]?.controls[element.name])">
+                                            </app-dynamic-elements-form>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                                <!-- <div *ngIf="sections.type === 'table'">
+                                    <ng-container
+                                        *ngFor="let element of sections.elements; let first=first; let last=last;">
+                                        <mat-divider *ngIf="!first"></mat-divider>
+                                        <div class="flex-row questions">
+                                            <div class="question"><span *ngIf="element.required"
+                                                    class="mandatory">*</span>{{element.label}}
+                                            </div>
+                                            <app-dynamic-elements-form [element]="element"
+                                                [elementControl]="getFormGroup(tabsFormGroup.controls[tab.name]?.controls[sections.name]?.controls[element.name])">
+                                            </app-dynamic-elements-form>
+                                        </div>
+                                    </ng-container>
+                                </div> -->
                             </div>
                         </mat-expansion-panel>
                     </ng-container>
@@ -168,7 +194,8 @@
         </ng-container>
     </mat-horizontal-stepper>
 
-    <mat-vertical-stepper linear="true" #stepper class="stepper-tabs" selectedIndex="1" *ngIf="(isHandset$ | async) && !(isHandset$ | async)">
+    <mat-vertical-stepper linear="true" #stepper class="stepper-tabs" selectedIndex="1"
+        *ngIf="(isHandset$ | async) && !(isHandset$ | async)">
         <ng-container *ngFor="let tab of tabs | sort:'asc':'sequence'; let first = first; let last = last">
             <mat-step label="{{tab.label}}" state="{{tab.icon}}"
                 [formGroup]="getFormGroup(tabsFormGroup?.controls[tab.name])" errorMessage="Invalid Data entered"

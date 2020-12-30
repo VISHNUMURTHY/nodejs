@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ElementsModel } from 'src/app/models/elements.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FieldValidatorsModel } from 'src/app/models/filed-validators.model';
+import { FieldValidatorsModel } from 'src/app/models/field-validators.model';
 import { SectionsModel } from 'src/app/models/sections.model';
-import { DependentsModel } from 'src/app/models/dependents.model';
 import { TabsModel } from 'src/app/models/tabs.model';
 
 @Injectable({

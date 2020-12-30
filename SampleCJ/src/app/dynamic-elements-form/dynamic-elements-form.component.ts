@@ -1,17 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ElementsModel } from '../models/elements.model';
 import { FormGroup, FormControl } from '@angular/forms';
-import { FieldValidatorsModel } from '../models/filed-validators.model';
+import { FieldValidatorsModel } from '../models/field-validators.model';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { DATE_MM_DD_YYYY_FORMAT } from '../shared/date-formats/date.format';
+import { DATE_DD_MMM_YYYY_FORMAT } from '../shared/date-formats/date.format';
 
 @Component({
   selector: 'app-dynamic-elements-form',
   templateUrl: './dynamic-elements-form.component.html',
   styleUrls: ['./dynamic-elements-form.component.scss'],
   providers: [{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-  { provide: MAT_DATE_FORMATS, useValue: DATE_MM_DD_YYYY_FORMAT }]
+  { provide: MAT_DATE_FORMATS, useValue: DATE_DD_MMM_YYYY_FORMAT }]
 })
 export class DynamicElementsFormComponent implements OnInit {
 

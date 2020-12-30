@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FieldValidatorsModel } from 'src/app/models/filed-validators.model';
+import { FieldValidatorsModel } from 'src/app/models/field-validators.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ElementsModel } from 'src/app/models/elements.model';
 

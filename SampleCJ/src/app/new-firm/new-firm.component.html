@@ -12,9 +12,9 @@
     </div>
 </div>
 
-<form [formGroup]="newFirmForm">
-    <div class="flex-column">
-        <div class="flex-row">
+<form [formGroup]="newFirmForm" class="new-firm-form">
+    <div>
+        <div class="flex-column">
             <mat-form-field>
                 <mat-label>Firm Name</mat-label>
                 <input type="text" matInput formControlName="firmName">
@@ -24,9 +24,7 @@
                 <mat-label>Firm URL</mat-label>
                 <input type="text" matInput formControlName="firmUrl">
             </mat-form-field>
-        </div>
 
-        <div class="flex-row">
             <mat-form-field>
                 <mat-label>Active Dates</mat-label>
                 <mat-date-range-input [rangePicker]="picker">
@@ -36,28 +34,12 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
-        </div>
 
-        <div class="flex-row">
-            <mat-form-field>
-                <mat-label>Referral Email</mat-label>
-                <input type="email" matInput formControlName="referralEmail">
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Sales Representative Email</mat-label>
-                <input type="email" matInput formControlName="salesRepEmail">
-            </mat-form-field>
-        </div>
-
-        <div class="flex-row">
             <mat-form-field>
                 <mat-label>Addess</mat-label>
                 <input type="text" matInput formControlName="address">
             </mat-form-field>
-        </div>
 
-        <div class="flex-row">
             <mat-form-field>
                 <mat-label>Firm Contact Number</mat-label>
                 <input type="text" matInput formControlName="firmPhone">
@@ -68,30 +50,45 @@
                 <input type="email" matInput formControlName="firmEmail">
             </mat-form-field>
         </div>
+        <mat-divider></mat-divider>
+        <div>
+            <div class="primary-contact">Primary Contact Details</div>
+            <div class="flex-row">
+                <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input type="text" matInput formControlName="firstName">
+                </mat-form-field>
 
-        <div class="flex-row">
-            <mat-form-field>
-                <mat-label>First Name</mat-label>
-                <input type="text" matInput formControlName="firstName">
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input type="text" matInput formControlName="lastName">
+                </mat-form-field>
+            </div>
 
-            <mat-form-field>
-                <mat-label>Last Name</mat-label>
-                <input type="text" matInput formControlName="lastName">
-            </mat-form-field>
+            <div class="flex-row">
+                <mat-form-field>
+                    <mat-label>Contact Email</mat-label>
+                    <input type="text" matInput formControlName="contactEmail">
+                </mat-form-field>
+            </div>
+
+            <div class="flex-row">
+                <mat-form-field>
+                    <mat-label>Contact Phone</mat-label>
+                    <input type="text" matInput formControlName="contactPhone">
+                </mat-form-field>
+            </div>
         </div>
-
-        <div class="flex-row">
+        <mat-divider></mat-divider>
+        <div class="flex-row referral-sales">
             <mat-form-field>
-                <mat-label>Contact Email</mat-label>
-                <input type="text" matInput formControlName="contactEmail">
+                <mat-label>Referral Email</mat-label>
+                <input type="email" matInput formControlName="referralEmail">
             </mat-form-field>
-        </div>
 
-        <div class="flex-row">
             <mat-form-field>
-                <mat-label>Contact Phone</mat-label>
-                <input type="text" matInput formControlName="contactPhone">
+                <mat-label>Sales Representative Email</mat-label>
+                <input type="email" matInput formControlName="salesRepEmail">
             </mat-form-field>
         </div>
     </div>

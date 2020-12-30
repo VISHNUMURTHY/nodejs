@@ -8,6 +8,7 @@ import { HandSetService } from '../shared/services/hand-set.service';
 import { HttpCommonService } from '../services/http-common.service';
 import { HttpResponse } from '@angular/common/http';
 import { WorkFlowListModel } from '../models/work-flow-list.model';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-work-flow',
@@ -25,6 +26,9 @@ export class WorkFlowComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator?: MatPaginator;
 
+  @ViewChild(MatSort)
+  sort: MatSort;
+
   constructor(private handSet: HandSetService, private httpService: HttpCommonService) {
     this.isHandset$ = this.handSet.isHandset$;
   }
@@ -34,6 +38,7 @@ export class WorkFlowComponent implements OnInit, AfterViewInit {
       if (res.body !== null) {
         this.dataSource = new MatTableDataSource<any>(res.body);
         this.dataSource.paginator = this.paginator || null;
+        this.dataSource.sort = this.sort;
       }
     }, (err: HttpResponse<any>) => {
       console.log("Error", err);
@@ -61,6 +66,7 @@ export class WorkFlowComponent implements OnInit, AfterViewInit {
       else
         this.dataSource.paginator = this.paginator || null;
     });
+    this.dataSource.sort = this.sort;
   }
 
   private _filter(value: string): string[] {

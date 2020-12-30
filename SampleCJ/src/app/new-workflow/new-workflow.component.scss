@@ -44,20 +44,58 @@ mat-form-field {
     padding: 20px;
 }
 
-.section-title {
-    justify-content: center;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.1);
-    padding: 4px 0;
-    margin: 8px 0;
+.mat-accordion .mat-expansion-panel:first-of-type {
+    margin-top: 16px;
 }
 
-app-dynamic-elements-form {
-    flex: 1 1 auto;
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 1), 0px 0px 0px 0px rgba(0, 0, 0, 1), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
 
-    & mat-form-field {
-        width: 50%;
-    }
+.panel-header,
+.mat-expansion-panel-header.mat-expanded:focus {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+mat-panel-title,
+mat-panel-description {
+    background-color: inherit;
+    color: inherit;
+    align-items: center;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.mat-expansion-panel-header.mat-expanded:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.section-body {
+    padding-top: 16px;
+}
+
+.question {
+    max-width: 75%;
+}
+
+.questions {
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+}
+
+.mandatory {
+    color: red;
+    margin-right: 8px;
+}
+
+app-dynamic-elements-form mat-form-field {
+    width: 50%;
+
 }
 
 @media screen and (max-width: 700px) {

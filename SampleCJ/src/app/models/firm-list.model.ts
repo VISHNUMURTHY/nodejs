@@ -4,5 +4,6 @@ export class FirmListModel {
     contact: string;
     tags: string;
     paymentDue: string;
+    paymentDueDate: string;
     creationDate: string;
   }

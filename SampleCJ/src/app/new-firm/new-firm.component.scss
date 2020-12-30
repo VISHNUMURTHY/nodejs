@@ -13,8 +13,30 @@ h2 {
     margin: 0 0 8px;
 }
 
-mat-form-field{
-    width: 250px;
+.new-firm-form {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 24px 24px 12px;
+    margin-top: 8px;
+}
+
+.primary-contact {
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.referral-sales {
+    padding-top: 12px;
+
+    // & mat-form-field {
+    //     width: 50%;
+    //     margin-right: 60px;
+    // }
+}
+
+mat-form-field {
+    width: 300px;
     margin-right: 60px;
 }
 
@@ -23,7 +45,11 @@ mat-form-field{
         padding: 16px;
     }
 
-    mat-form-field{
+    .new-firm-form {
+        padding: 16px;
+    }
+
+    mat-form-field {
         width: 100%;
         margin-right: 0;
     }

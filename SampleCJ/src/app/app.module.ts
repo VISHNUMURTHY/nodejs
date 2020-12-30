@@ -27,6 +27,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { FilesDropZoneDirective } from './shared/directives/files-drop-zone.directive';
 import { FirmsListComponent } from './firms-list/firms-list.component';
 import { NewFirmComponent } from './new-firm/new-firm.component';
+import { FirmDetailsComponent } from './firm-details/firm-details.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { NewFirmComponent } from './new-firm/new-firm.component';
     AlertMessagesComponent,
     FilesDropZoneDirective,
     FirmsListComponent,
-    NewFirmComponent
+    NewFirmComponent,
+    FirmDetailsComponent
   ],
   imports: [
     BrowserModule,
